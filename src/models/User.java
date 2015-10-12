@@ -1,5 +1,8 @@
 package models;
 
+import static com.google.common.base.MoreObjects.toStringHelper;
+import com.google.common.base.Objects;
+
 public class User 
 {
   public String firstName;
@@ -17,10 +20,30 @@ public class User
     this.lastName = lastName;
     this.email = email;
     this.password = password;
+    this.id        = counter++;
+    //...
   }
   
+  @Override  
+  public int hashCode()  
+  {  
+     return Objects.hashCode(this.lastName, this.firstName, this.email, this.password);  
+  }  
+  
+  @Override
   public String toString()
   {
-    return firstName + ' ' + lastName +' ' +  email +' ' +  password; 
+    return toStringHelper(this).addValue(firstName)
+                               .addValue(lastName)
+                               .addValue(password)
+                               .addValue(email)                               
+                               .toString();
   }
+  
+  static Long   counter = 0l;
+
+  public Long   id;
+  //...  
+  
+  
 }
